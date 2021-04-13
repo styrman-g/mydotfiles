@@ -427,15 +427,20 @@
       </action>
     
     <!-- Keybindings for running applications -->
-         </keybind>
-    <keybind key="W-r">
-      <action name="Execute">
-        <command>xterm ranger</command>
-        </action>
-        </keybind>
-    <keybind key="W-i">
-        <action name="ShowMenu">
-            <menu>root-menu</menu>
+    </keybind>
+        <keybind key="W-v">
+            <action name="Execute">
+        <command>virtualbox</command>
+    </action>
+    </keybind>
+        <keybind key="W-r">
+            <action name="Execute">
+                <command>xterm ranger</command>
+             </action>
+    </keybind>
+        <keybind key="W-i">
+            <action name="ShowMenu">
+         <menu>root-menu</menu>
     </action>
     </keybind>
     <keybind key="W-space">
