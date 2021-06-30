@@ -50,3 +50,27 @@ augroup END
 if has('syntax') && has('eval')
   packadd! matchit
 endif
+
+" Line number.
+set number
+set relativenumber
+
+"Tabs.
+set tabstop=4
+set softtabstop=4
+set expandtab
+
+" Move vertically by visual line.
+nnoremap j gj
+nnoremap k gk
+
+" Themes.
+let g:molokai_original = 1
+
+
+" cursorline.
+set cursorline
+
+
+
+
