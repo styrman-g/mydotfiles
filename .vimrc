@@ -35,5 +35,6 @@ set incsearch
 set scrolloff=8
 set hlsearch
 
+syntax on
 
 
