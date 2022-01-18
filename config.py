@@ -363,6 +363,20 @@ def init_widgets_list():
                        padding = 0,
                        fontsize = 37
                        ),
+              widget.Battery(
+                       font = "Noto Sans",
+                       foreground = colors[2],
+                       background = colors[5],
+                       padding = 0
+                       ),
+              widget.BatteryIcon(
+                       scale = 0.7,
+                       y_poss = 2,
+                       update_interval = 5,
+                       foreground = colors [2],
+                       background = colors [5],
+                       padding = 5
+                       ),
               widget.TextBox(
                       text = " Vol:",
                        foreground = colors[2],
