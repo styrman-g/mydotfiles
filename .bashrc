@@ -118,10 +118,49 @@ fi
 
 
 #Mina egna ändringar
-neofetch
+#neofetch
 
 #Mitt eget PS1
 export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;3m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\H\[$(tput sgr0)\]\[\033[38;5;1m\]]\[$(tput sgr0)\]\\$\[$(tput sgr0)\] "
+### ALIASES ###
+# apt package manager
+# alias aptup='sudo apt update && sudo apt upgrade'
+# alias aptupd='sudo apt update'
+# alias aptupg='sudo apt upgrade'
+# alias aptin='sudo apt install'
+# alias aptrm='sudo apt remove'
+
+# pacman package manager
+# alias pacsyu='sudo pacman -Syu'
+# alias pacin='sudo pacman -S'
+# alias pacrm='sudo pacman -R'
+
+# ls with all the flags
+alias ls='ls -lah --color=auto'
+
+# cd up the directories
+alias .1='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+
+# mkdir create parents
+alias mkdir='mkdir -pv'
+
+# confirmations
+alias mv='mv -i'
+alias cp='cp -i'
+alias rm='rm -i'
+alias ln='ln -i'
+
+# audio
+alias playwav='rhythmbox *.wav'
+alias playogg='rhythmbox *.ogg'
+alias playmp3='rhythmbox *.mp3'
+
+# video
+alias playavi='vlc *.avi'
+alias playmov='vlc *.mov'
+alias playmp4='vlc *.mp4'
 
 
 
