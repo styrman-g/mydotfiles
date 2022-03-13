@@ -339,6 +339,25 @@ screens = [
                     foreground=colors[6],
                     format='%a %d, (%B) %H:%M:%S '
                 ),
+                widget.Sep(
+                    background=colors[1],
+                    foreground=colors[5],
+                    linewidth=1,
+                    padding=10
+                ),
+                widget.TextBox(
+                    background=colors[1],
+                    font='Ubuntu Nerd Font',
+                    fontsize=14,
+                    foreground=colors[6],
+                    padding=0,
+                    text=' '
+                ),
+                widget.QuickExit(
+                    foreground=colors[6],
+                    background=colors[1],
+                    padding=5
+                ), 
             ],
             22,
             opacity=0.9
