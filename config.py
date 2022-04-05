@@ -249,6 +249,31 @@ screens = [
                     padding=0,
                     text=' '
                 ),
+              widget.CheckUpdates(
+                   update_interval = 60,
+                   distro = "Arch_checkupdates",
+                   display_format = "Updates: {updates} ",
+                   foreground = colors[5],
+                   colour_have_updates = colors[5],
+                   colour_no_updates = colors[5],
+                   no_update_string = "No updates",
+                   padding = 5,
+                   background = colors[1]
+                   ),
+                widget.Sep(
+                    background=colors[1],
+                    foreground=colors[5],
+                    linewidth=1,
+                    padding=10
+                ),
+                widget.TextBox(
+                    background=colors[1],
+                    font='Ubuntu Nerd Font',
+                    fontsize=14,
+                    foreground=colors[6],
+                    padding=0,
+                    text=' '
+                ),
                 widget.CapsNumLockIndicator(
                     background=colors[1],
                     font='Ubuntu',
