@@ -131,12 +131,16 @@ export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u
 # alias aptrm='sudo apt remove'
 
 # pacman package manager
-# alias pacsyu='sudo pacman -Syu'
-# alias pacin='sudo pacman -S'
-# alias pacrm='sudo pacman -R'
+alias update='sudo pacman -Syu'
+alias install='sudo pacman -S'
+alias remove='sudo pacman -R'
 
 # ls with all the flags
-alias ls='ls -lah --color=auto'
+#alias ls='ls -lah --color=auto'
+
+# My own LS
+alias ls='ls -lh --color=auto'
+
 
 # cd up the directories
 alias .1='cd ..'
