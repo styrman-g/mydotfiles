@@ -62,6 +62,9 @@ keys = [
     Key("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key("M-r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+    # keybindigs to launch my scripts
+    Key("M-S-x", lazy.spawn("/home/styrman/.scripts/power.sh"), desc="Run a power scripts"),
+    Key("M-c", lazy.spawn("/home/styrman/.scripts/dmenu-configs.sh"), desc="Run my config-scripts"),
 
     # Keybindings to launch user defined programs
     Key("M-S-<Return>", lazy.spawn("dmenu_run"), desc="Launch dmenu"),
@@ -78,13 +81,13 @@ keys = [
 ]
 
 groups = [
-    Group("", layout="monadtall",        matches=[Match(wm_class=["navigator", "firefox", "vivaldi-stable", "chromium", "brave"])]),
-    Group("", layout="monadtall",  matches=[Match(wm_class=["emacs", "geany", "subl"])]),
-    Group("", layout="monadtall",  matches=[Match(wm_class=["inkscape", "nomacs", "ristretto", "nitrogen"])]),
-    Group("", layout="monadtall",  matches=[Match(wm_class=["qpdfview", "thunar", "nemo", "caja", "pcmanfm"])]),
-    Group("", layout="max",        matches=[Match(wm_class=["telegramDesktop"])]),
+    Group("", layout="monadtall"),
+    Group("", layout="monadtall"),
+    Group("", layout="monadtall"),
+    Group("", layout="monadtall"),
+    Group("", layout="max"),
     Group("", layout="ratiotile"),
-    Group("", layout="max",        matches=[Match(wm_class=["spotify", "pragha", "clementine", "deadbeef", "audacious"]), Match(title=["VLC media player"])]),
+    Group("", layout="max"),
     Group("", layout="tile"),
 ]
 
