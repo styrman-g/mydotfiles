@@ -226,10 +226,15 @@ bar {
 bindsym $mod+shift+z exec i3lock --color "$bg-color"
 
 # Programs to start when you login
-#exec always picom -f 
+exec picom & 
 #exec always feh --bg-scale /home/styrman/Bilder/Wallpapers/0019.jpg
 exec --no-startup-id nitrogen --restore
 
 # To run some programs
 bindsym $mod+f exec alacritty -e ranger 
 bindsym $mod+b exec brave
+
+# To run scripts
+bindsym $mod+shift+n exec /home/styrman/.scripts/dmenu-configs.sh
+bindsym $mod+shift+x exec /home/styrman/.scripts/power.sh
+bindsym $mod+shift+y exec /home/styrman/.scripts/latex.sh
