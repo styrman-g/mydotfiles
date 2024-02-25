@@ -1,43 +1,9 @@
-#  _________    _     _
-# |  _______|  | |   | |      
-# | |   ____   | |___| |
-# | |  |__  |  |  ___  |      
-# | |____|  |  | |   | |
-# |_________|  |_|   |_|      
-#_________________________
-	
-
-Xft.dpi: 96
-Xft.antialias: true
-Xft.hinting: true
-Xft.rgba: rgb
-Xft.autohint: true
-Xft.hintstyle: hintfull
-Xft.lcdfilter: lcdfilter
-
-
-XTerm*renderFont: true
-XTerm*faceName: xft:Mononoki Nerd Font, \
-                xft:JoyPixels:size=12, \
-                xft:Monospace:style=Medium:size=12   
-XTerm*faceSize: 14
-XTerm*utf8: 2
-XTerm*locale: true
-xterm*geometry: 150x50
-
-XTerm.vt100.translations: #override \n\
-  Ctrl <Key> j: smaller-vt-font() \n\
-  Ctrl <Key> k: larger-vt-font()
-
-
-! Every shell is a login shell by default (for inclusion of all necessary environment variables)
-XTerm*loginshell: true
-
-! I like a LOT of scrollback...
-XTerm*savelines: 16384
-
-! double-click to select whole URLs :D
-XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+! ____ _______   ______  __  __    _    _   _ 
+!/ ___|_   _\ \ / /  _ \|  \/  |  / \  | \ | |
+!\___ \ | |  \ V /| |_) | |\/| | / _ \ |  \| |
+! ___) || |   | | |  _ <| |  | |/ ___ \| |\  |
+!|____/ |_|   |_| |_| \_\_|  |_/_/   \_\_| \_|
+!_____________________________________________
 
 URxvt*imLocale: sv_SE.UTF-8
 URxvt*termName: rxvt-unicode-256color
@@ -50,146 +16,59 @@ URxvt.saveLines: 2000
 URxvt.scrollBar: false
 URxvt.cursorColor: white
 
+URxvt*geometry:80x240+0+0
+
+!! URxvt: Extensions
+URxvt.perl-ext-common: url-select,keyboard-select,resize-font,matcher,selection-to-clipboard,readline,
+!! VI mode
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+!! URxvt: Resize-font
+URxvt.keysym.C-minus:   resize-font:smaller
+URxvt.keysym.C-plus:   resize-font:bigger
+URxvt.keysym.C-equal:   resize-font:equal
 
 ! Palenight Xresources palette
 !! COLORS
 
-!!URxvt*foreground:   #bbc5ff
-!!URxvt*background:   [95]#282a36
-!!URxvt*cursorColor:  #bbc5ff
+URxvt*depth: 32
+URxvt*foreground:   #bbc5ff
+URxvt*background:   [80]#282a36
+URxvt*cursorColor:  #bbc5ff
 !!
-!!XTerm*foreground: #bbc5ff
-!!XTerm*background: #282a36
-!!XTerm*cursorColor: #bbc5ff
-!!
-!!! black
-!!*.color0:       #101010  !! originally #292d3e
-!!*.color8:       #434758
-!!
-!!! red
-!!*.color1:       #f07178
-!!*.color9:       #ff8b92
-!!
-!!! green
-!!*.color2:       #c3e88d
-!!*.color10:      #ddffa7
-!!
-!!! yellow
-!!*.color3:       #ffcb6b
-!!*.color11:      #ffe585
-!!
-!!! blue
-!!*.color4:       #82aaff
-!!*.color12:      #9cc4ff
-!!
-!!! magenta
-!!*.color5:       #c792ea
-!!*.color13:      #e1acff
-!!
-!!! cyan
-!!*.color6:       #89ddff
-!!*.color14:      #a3f7ff
-!!
-!!! white
-!!*.color7:       #d0d0d0
-!!*.color15:      #ffffff
-!!! special
-!!*.foreground:   #bbc2cf
-!!*.background:   #282c34
-!!*.cursorColor:  #bbc2cf
+XTerm*foreground: #bbc5ff
+XTerm*background: #282a36
+XTerm*cursorColor: #bbc5ff
 !!
 !!! black
-!!*.color0:       #1c1f24
-!!*.color8:       #5b6268
+*.color0:       #101010  !! originally #292d3e
+*.color8:       #434758
 !!
 !!! red
-!!*.color1:       #ff6c6b
-!!*.color9:       #da8548
+*.color1:       #f07178
+*.color9:       #ff8b92
 !!
 !!! green
-!!*.color2:       #98be65
-!!*.color10:      #4db5bd
+*.color2:       #c3e88d
+*.color10:      #ddffa7
 !!
 !!! yellow
-!!*.color3:       #da8548
-!!*.color11:      #ecbe7b
+*.color3:       #ffcb6b
+*.color11:      #ffe585
 !!
 !!! blue
-!!*.color4:       #51afef
-!!*.color12:      #2257a0
+*.color4:       #82aaff
+*.color12:      #9cc4ff
 !!
 !!! magenta
-!!*.color5:       #c678dd
-!!*.color13:      #a9a1e1
+*.color5:       #c792ea
+*.color13:      #e1acff
 !!
 !!! cyan
-!!*.color6:       #5699af
-!!*.color14:      #46d9ff
+*.color6:       #89ddff
+*.color14:      #a3f7ff
 !!
 !!! white
-!!*.color7:       #202328
-!!*.color15:      #dfdfdf
-!!
-
-
-! special
-!!*.foreground:   #bbc2cf
-!!*.background:   #282c34
-!!*.cursorColor:  #bbc2cf
-
-! black
-!!*.color0:       #1c1f24
-!!*.color8:       #5b6268
-
-! red
-!!*.color1:       #ff6c6b
-!!*.color9:       #da8548
-
-! green
-!!*.color2:       #98be65
-!!*.color10:      #4db5bd
-
-! yellow
-!!*.color3:       #da8548
-!!*.color11:      #ecbe7b
-
-! blue
-!!*.color4:       #51afef
-!!*.color12:      #3071db
-
-! magenta
-!!*.color5:       #c678dd
-!!*.color13:      #a9a1e1
-
-! cyan
-!!*.color6:       #5699af
-!!*.color14:      #46d9ff
-
-! white
-!!*.color7:       #202328
-!!*.color15:      #dfdfdf
-
-XTerm*selectToClipboard: true
-
-! Dracula Xresources palette
-*.foreground: #F8F8F2
-*.background: #282A36
-*.color0:     #000000
-*.color8:     #4D4D4D
-*.color1:     #FF5555
-*.color9:     #FF6E67
-*.color2:     #50FA7B
-*.color10:    #5AF78E
-*.color3:     #F1FA8C
-*.color11:    #F4F99D
-*.color4:     #BD93F9
-*.color12:    #CAA9FA
-*.color5:     #FF79C6
-*.color13:    #FF92D0
-*.color6:     #8BE9FD
-*.color14:    #9AEDFE
-*.color7:     #BFBFBF
-*.color15:    #E6E6E6
-
-
-
+*.color7:       #d0d0d0
+*.color15:      #ffffff
+                                             
