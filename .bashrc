@@ -1,6 +1,16 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# ____ _______   ______  __  __    _    _   _ ____  
+#/ ___|_   _\ \ / /  _ \|  \/  |  / \  | \ | / ___| 
+#\___ \ | |  \ V /| |_) | |\/| | / _ \ |  \| \___ \ 
+# ___) || |   | | |  _ <| |  | |/ ___ \| |\  |___) |
+#|____/ |_|   |_| |_| \_\_|  |_/_/   \_\_| \_|____/ 
+#                                                   
+# ____    _    ____  _   _ ____   ____ 
+#| __ )  / \  / ___|| | | |  _ \ / ___|
+#|  _ \ / _ \ \___ \| |_| | |_) | |    
+#| |_) / ___ \ ___) |  _  |  _ <| |___ 
+#|____/_/   \_\____/|_| |_|_| \_\\____|
+#
+# My bash config. Use it how your want.
 
 # If not running interactively, don't do anything
 case $- in
@@ -8,102 +18,25 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# Allows you to cd into directory by typing the directory name.
+shopt -s autocd 
 
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# Setting my Bash promt.
+export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;3m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\H\[$(tput sgr0)\]\[\033[38;5;1m\]]\[$(tput sgr0)\]\\$\[$(tput sgr0)\] "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -116,55 +49,19 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#Mina egna ändringar
-#neofetch
-
-#Mitt eget PS1
-export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;3m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\H\[$(tput sgr0)\]\[\033[38;5;1m\]]\[$(tput sgr0)\]\\$\[$(tput sgr0)\] "
-### ALIASES ###
-# apt package manager
-# alias aptup='sudo apt update && sudo apt upgrade'
-# alias aptupd='sudo apt update'
-# alias aptupg='sudo apt upgrade'
-# alias aptin='sudo apt install'
-# alias aptrm='sudo apt remove'
-
+# Some aliases
 # pacman package manager
 alias update='sudo pacman -Syu'
 alias install='sudo pacman -S'
-alias remove='sudo pacman -R'
 
-# ls with all the flags
-#alias ls='ls -lah --color=auto'
+# Adding color
+alias ls='ls -hN --color=auto --group-directories-first'
+alias grep="grep --color=auto"
 
-# My own LS
-alias ls='ls -lh --color=auto'
+# Internet
+# Download video
+alias yt="youtube-dl --add-metadata -ic"
+# Download only audio
+alias yta="youtube-dl --add-metadata -xic"
 
-
-# cd up the directories
-alias .1='cd ..'
-alias .2='cd ../..'
-alias .3='cd ../../..'
-
-# mkdir create parents
-alias mkdir='mkdir -pv'
-
-# confirmations
-alias mv='mv -i'
-alias cp='cp -i'
-alias rm='rm -i'
-alias ln='ln -i'
-
-# audio
-alias playwav='rhythmbox *.wav'
-alias playogg='rhythmbox *.ogg'
-alias playmp3='rhythmbox *.mp3'
-
-# video
-alias playavi='vlc *.avi'
-alias playmov='vlc *.mov'
-alias playmp4='vlc *.mp4'
-
-
-
+fastfetch
