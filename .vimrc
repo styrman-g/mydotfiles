@@ -10,6 +10,9 @@
 "  \ V /  | || |  | |  _ <| |___ 
 "   \_/  |___|_|  |_|_| \_\\____|
 "                                
+" https://github.com/styrman-g
+" My vim config file. Take a copy of it, if you want.
+"
 " Line number.
 set number
 set relativenumber

@@ -3,7 +3,9 @@
 !\___ \ | |  \ V /| |_) | |\/| | / _ \ |  \| |
 ! ___) || |   | | |  _ <| |  | |/ ___ \| |\  |
 !|____/ |_|   |_| |_| \_\_|  |_/_/   \_\_| \_|
-!_____________________________________________
+!
+! https://github.com/styrman-g
+! My Xresources file, Feel free to take a copy of it._____________________________________________
 
 URxvt*imLocale: sv_SE.UTF-8
 URxvt*termName: rxvt-unicode-256color

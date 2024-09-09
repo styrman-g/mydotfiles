@@ -11,6 +11,10 @@
 #|____/_/   \_\____/|_| |_|_| \_\\____|
 #
 # My bash config. Use it how your want.
+# https://github.com/styrman-g
+
+### EXPORT
+export TERM="xterm-256color"                      # getting proper colors
 
 # If not running interactively, don't do anything
 case $- in
@@ -22,7 +26,7 @@ esac
 shopt -s autocd 
 
 # Setting my Bash promt.
-export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;3m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\H\[$(tput sgr0)\]\[\033[38;5;1m\]]\[$(tput sgr0)\]\\$\[$(tput sgr0)\] "
+#export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;3m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\H\[$(tput sgr0)\]\[\033[38;5;1m\]]\[$(tput sgr0)\]\\$\[$(tput sgr0)\] "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -31,12 +35,6 @@ shopt -s checkwinsize
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
-
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -64,4 +62,9 @@ alias yt="youtube-dl --add-metadata -ic"
 # Download only audio
 alias yta="youtube-dl --add-metadata -xic"
 
-fastfetch
+# Starchip-A cross-shell prompt
+eval "$(starship init bash)"
+
+#nerdfetch
+#fastfetch
+#neofetch
