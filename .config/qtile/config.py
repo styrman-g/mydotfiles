@@ -20,6 +20,7 @@ from libqtile.widget import Spacer
 
 home = os.path.expanduser('~')
 terminal = "kitty"
+myBrowser = "librewolf"
 
 keys = [
     # Switch between windows
@@ -74,14 +75,14 @@ keys = [
     # Keybindings to launch user defined programs
     Key("M-S-<Return>", lazy.spawn("dmenu_run"), desc="Launch dmenu"),
     Key("A-e", lazy.spawn("emacs"), desc="Launch emacs"),
-    Key("M-f", lazy.spawn("pcmanfm"), desc="Launch pcmanfm"),
+    Key("M-f", lazy.spawn("thunar"), desc="Launch pcmanfm"),
     Key("A-m", lazy.spawn("/usr/local/src/thunderbird/thunderbird"), desc="Launch thunderbird"),
     Key("M-n", lazy.spawn("nitrogen"), desc="Launch nitrogen"),
     Key("A-r", lazy.spawn("rofi -show run"), desc="Launch rofi"),
     Key("A-s", lazy.spawn("st"), desc="Launch suckless terminal"),
     Key("A-t", lazy.spawn("urxvtc"), desc="Launch rxvt-unicode"),
     Key("A-w", lazy.spawn("/usr/local/src/waterfox/waterfox-bin"), desc="Launch waterfox"),
-    Key("M-w", lazy.spawn("firefox"), desc="launch firefox"),
+    Key("M-w", lazy.spawn("librewolf"), desc="launch my Browser"),
     Key("A-C-s", lazy.spawn("/usr/local/src/sublime_text/sublime_text"), desc="Launch sublime_text"),
 ]
 
@@ -253,8 +254,8 @@ screens = [
                 ),
               widget.CheckUpdates(
                    update_interval = 60,
-                   distro = "Debian",
-                   display_format = "apt-show-versions -u -b', 0 ",
+                   distro = "Arch",
+                   display_format = 'Updates: {updates}',
                    foreground = colors[5],
                    colour_have_updates = colors[5],
                    colour_no_updates = colors[5],
