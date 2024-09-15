@@ -12,11 +12,17 @@
 
 
 import os, re, shutil, socket, subprocess
-from libqtile import bar, hook, layout, qtile, widget
+from libqtile import bar, hook, layout, qtile 
 from libqtile.config import EzClick as Click, EzDrag as Drag, Group, EzKey as Key, Match, Rule, Screen
 from libqtile.lazy import lazy
 from typing import List  # noqa: F401
 from libqtile.widget import Spacer
+from qtile_extras import widget
+from qtile_extras.widget.decorations import BorderDecoration
+from qtile_extras.widget.decorations import PowerLineDecoration
+from qtile_extras.bar import Bar
+from qtile_extras.widget import modify
+
 
 home = os.path.expanduser('~')
 terminal = "kitty"
@@ -66,11 +72,12 @@ keys = [
 
     Key("M-C-r", lazy.restart(), desc="Restart Qtile"),
     Key("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key("M-r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
+    Key("M-r", lazy.spawncmd(), 
+desc="Spawn a command using a prompt widget"),
     # keybindigs to launch my scripts
     Key("M-S-x", lazy.spawn("/home/styrman/.scripts/power.sh"), desc="Run a power scripts"),
     Key("M-c", lazy.spawn("/home/styrman/.scripts/dmenu-configs.sh"), desc="Run my config-scripts"),
+    Key("M-S-b", lazy.spawn("/home/styrman/.scripts/backup.sh"), desc="Run Backup"),
 
     # Keybindings to launch user defined programs
     Key("M-S-<Return>", lazy.spawn("dmenu_run"), desc="Launch dmenu"),
@@ -93,17 +100,15 @@ groups = [
     Group("4", layout="monadtall"),
     Group("5", layout="max"),
     Group("6", layout="ratiotile"),
-    Group("7", layout="max"),
-    Group("8", layout="tile"),
 ]
 
-for k, group in zip(["1", "2", "3", "4", "5", "6", "7", "8"], groups):
+for k, group in zip(["1", "2", "3", "4", "5", "6"], groups):
     keys.append(Key("M-"+(k), lazy.group[group.name].toscreen()))
     keys.append(Key("M-S-"+(k), lazy.window.togroup(group.name)))
 
 def init_layout_theme():
     return {
-            "margin": 0,
+            "margin": 10,
             "border_width": 4,
             "border_focus": '#5e81ac',
             "border_normal": '#4c566a'
@@ -162,8 +167,8 @@ prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 widget_defaults = dict(
     font='Ubuntu Nerd Font',
     fontsize=12,
-    padding=3,
-    background=colors[1],
+    padding=8,
+    background=colors[0],
     foreground=colors[5]
 )
 extension_defaults = widget_defaults.copy()
@@ -238,228 +243,113 @@ screens = [
                     foreground=colors[6]
                 ),
                 widget.Spacer(),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=5
-                ),
-                widget.TextBox(
-                    background=colors[1],
-                    font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text=' '
-                ),
-              widget.CheckUpdates(
-                   update_interval = 60,
-                   distro = "Arch",
-                   display_format = 'Updates: {updates}',
-                   foreground = colors[5],
-                   colour_have_updates = colors[5],
-                   colour_no_updates = colors[5],
-                   no_update_string = "No updates",
-                   padding = 5,
-                   background = colors[1]
-                   ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                 widget.TextBox(
-                    background=colors[1],
-                    font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text=' '
-                ),
                 widget.ThermalSensor(
-                    background=colors[1],
-                    font='Ubuntu',
-                    fontsize=12,
-                    foreground=colors[6],
-                    update_interval=2
+                    foreground=colors[14],
+                    update_interval=2,
+                    format = ' {temp:.1f}{unit}',
+                    fmt = '{}',
+                    decorations=[
+                        BorderDecoration(
+                            colour = colors[14],
+                            border_width = [0, 0, 2, 0],
+                    )
+                ],
                 ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                widget.TextBox(
-                    background=colors[1],
-                    font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text=' '
-                ),
+                widget.Spacer(length = 8),
+                widget.CPU(
+                     format = '   Cpu: {load_percent}%',
+                     foreground = colors[8],
+                     decorations=[
+                        BorderDecoration(
+                          colour = colors[8],
+                          border_width = [0, 0, 2, 0],
+                      )
+                  ],
+                  ),
+
+                widget.Spacer(length = 8),
                 widget.Memory(
                     background=colors[1],
-                    font='Ubuntu',
-                    fontsize=12,
-                    foreground=colors[6],
-                    format="{MemUsed: .0f}{mm}",
-                    update_interval=1.0
-                ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                widget.TextBox(
-                    background=colors[1],
                     font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text=' '
-                ),
-                widget.CPU(
-                    background=colors[1],
-                    font='Ubuntu',
                     fontsize=12,
-                    foreground=colors[6],
-                    format='CPU {load_percent}%',
-                    update_interval=1
-                ),
-                #widget.CPUGraph(
-                #    background=colors[1],
-                #    border_color=colors[5],
-                #    border_width=0,
-                #    core='all',
-                #    fill_color=colors[10], #81a1c1
-                #    foreground=colors[5],
-                #    graph_color=colors[10],
-                #    line_width=1,
-                #    type='linefill'
-                #),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                widget.TextBox(
-                    background=colors[1],
-                    font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text='  '
-                ),
-                widget.Net(
-                    background=colors[1],
-                    font='Ubuntu',
-                    fontsize=12,
-                    foreground=colors[5],
-                    format='{interface}: {down} ↓ ',
-                    interface='all',
-                    padding=0
-                ),
-                #widget.NetGraph(
-                #    background=colors[1],
-                #    bandwidth="down",
-                #    border_color=colors[5],
-                #    border_width=0,
-                #    fill_color=colors[9], #88c0d0
-                #    foreground=colors[5],
-                #    graph_color=colors[9],
-                #    interface="auto",
-                #    line_width=1,
-                #    padding=0,
-                #    type='linefill'
-                #),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                widget.TextBox(
-                    background=colors[1],
-                    font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text=' '
-                ),
-                widget.TextBox(
-                    text="Vol:",
-                    foreground=colors[5],
-                    background=colors[1],
-                    padding=0
-                ),
+                    foreground=colors[12],
+                    format="  Mem:  {MemUsed: .0f}{mm}",
+                    update_interval=1.0,
+                    decorations=[
+                        BorderDecoration(
+                            colour = colors[12],
+                            border_width = [0, 0, 2, 0],
+                        )
+                  ],
+                  ),
+
+                widget.Spacer(length = 8),
+                widget.DF(
+                 update_interval = 60,
+                 foreground = colors[14],
+                 partition = '/',
+                 #format = '[{p}] {uf}{m} ({r:.0f}%)',
+                 format = '{uf}{m} free',
+                 fmt = '  Disk: {}',
+                 visible_on_warn = False,
+                 decorations=[
+                    BorderDecoration(
+                        colour = colors[14],
+                        border_width = [0, 0, 2, 0],
+                    )
+                 ],
+                 ),
+                widget.Spacer(length = 8),
                 widget.Volume(
-                    foreground=colors[5],
-                    background=colors[1],
-                    padding=5
-                ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                widget.TextBox(
+                    foreground=colors[8],
                     background=colors[1],
                     font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text=' '
+                    padding=5,
+                    fmt=' Vol: {}',
+                    decorations=[
+                        BorderDecoration(
+                            colour = colors[8],
+                            border_width = [0, 0, 2, 0],
+                    )
+                ],
                 ),
+                widget.Spacer(length = 8),
                 widget.Battery(
-                    font="Noto Sans",
-                    foreground=colors[6],
+                    font="Ubuntu Nerd Font",
+                    foreground=colors[12],
                     background=colors[1],
-                    padding=0
-                ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                widget.TextBox(
-                    background=colors[1],
-                    font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
                     padding=0,
-                    text=' '
+                    fmt='   {}',
+                    format='{char} {percent:2.0%} {hour:d}:{min:02d}',
+                    decorations=[
+                        BorderDecoration(
+                            colour =colors[12],
+                            border_width = [0, 0, 2, 0],
+                    )
+                ],
                 ),
+                widget.Spacer(length = 8),
                 widget.Clock(
                     background=colors[1],
                     font='Ubuntu',
                     fontsize=12,
-                    foreground=colors[6],
-                    format='%a %d, (%B) %H:%M:%S '
+                    foreground=colors[14],
+                    fmt='  {}',
+                    format='%d/%m/%y %H:%M',
+                    decorations=[
+                        BorderDecoration(
+                            colour=colors[14],
+                            border_width=[0, 0, 2, 0],
+                    )
+                ],
                 ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
-                widget.TextBox(
-                    background=colors[1],
-                    font='Ubuntu Nerd Font',
-                    fontsize=14,
-                    foreground=colors[6],
-                    padding=0,
-                    text=' '
-                ),
+                widget.Spacer(length = 8),
                 widget.Systray(
                     background=colors[1],
+                    foreground=colors[8],
                     icon_size=20,
                     padding=4
-                ),
+                    ),
             ],
             22,
             opacity=1.0
