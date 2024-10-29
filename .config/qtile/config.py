@@ -17,6 +17,7 @@ from libqtile.config import EzClick as Click, EzDrag as Drag, Group, EzKey as Ke
 from libqtile.lazy import lazy
 from typing import List  # noqa: F401
 from libqtile.widget import Spacer
+# Make sure 'qtile-extras' is installed or this config will not work.
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 from qtile_extras.widget.decorations import PowerLineDecoration
@@ -25,7 +26,7 @@ from qtile_extras.widget import modify
 
 
 home = os.path.expanduser('~')
-terminal = "kitty"
+terminal = "alacritty"
 myBrowser = "librewolf"
 
 keys = [
@@ -82,15 +83,14 @@ desc="Spawn a command using a prompt widget"),
     # Keybindings to launch user defined programs
     Key("M-S-<Return>", lazy.spawn("dmenu_run"), desc="Launch dmenu"),
     Key("A-e", lazy.spawn("emacs"), desc="Launch emacs"),
-    Key("M-f", lazy.spawn("thunar"), desc="Launch pcmanfm"),
-    Key("A-m", lazy.spawn("/usr/local/src/thunderbird/thunderbird"), desc="Launch thunderbird"),
+    Key("M-f", lazy.spawn("st -e lf"), desc="Launch lf file manager"),
+    Key("M-m", lazy.spawn("proton-mail"), desc="Launch Protonmail"),
     Key("M-n", lazy.spawn("nitrogen"), desc="Launch nitrogen"),
     Key("A-r", lazy.spawn("rofi -show run"), desc="Launch rofi"),
     Key("A-s", lazy.spawn("st"), desc="Launch suckless terminal"),
     Key("A-t", lazy.spawn("urxvtc"), desc="Launch rxvt-unicode"),
-    Key("A-w", lazy.spawn("/usr/local/src/waterfox/waterfox-bin"), desc="Launch waterfox"),
-    Key("M-w", lazy.spawn("librewolf"), desc="launch my Browser"),
-    Key("A-C-s", lazy.spawn("/usr/local/src/sublime_text/sublime_text"), desc="Launch sublime_text"),
+    Key("M-p", lazy.spawn("keepassxc"), desc="My Passwordmanager"),
+    Key("M-w", lazy.spawn(myBrowser), desc="launch my Browser"),
 ]
 
 groups = [
@@ -98,8 +98,8 @@ groups = [
     Group("2", layout="monadtall"),
     Group("3", layout="monadtall"),
     Group("4", layout="monadtall"),
-    Group("5", layout="max"),
-    Group("6", layout="ratiotile"),
+    Group("5", layout="monadtall"),
+    Group("6", layout="monadtall"),
 ]
 
 for k, group in zip(["1", "2", "3", "4", "5", "6"], groups):
@@ -168,7 +168,7 @@ widget_defaults = dict(
     font='Ubuntu Nerd Font',
     fontsize=12,
     padding=8,
-    background=colors[0],
+    background=colors[1],
     foreground=colors[5]
 )
 extension_defaults = widget_defaults.copy()
@@ -177,24 +177,13 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Sep(
-                    background=colors[1], #2e3440
-                    foreground=colors[5], #d8dee9
-                    linewidth=1,
-                    padding=10
-                ),
                 widget.Image(
-                    filename="~/.config/qtile/icons/qtilelogo.png",
+                    filename="~/.config/qtile/icons/arch.png",
                     iconsize=8,
                     background=colors[1],
                     mouse_callbacks={'Button1': lambda : qtile.cmd_spawn('rofi -show run')}
                 ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
+                widget.Spacer(length = 8),
                 widget.GroupBox(
                     active=colors[16], #b48ead
                     borderwidth=2,
@@ -203,7 +192,7 @@ screens = [
                     fontsize=14,
                     hide_unused=False,
                     highlight_method='line',
-                    inactive=colors[6], #e5e9f0
+                    inactive=colors[14], #e5e9f0
                     margin_x=0,
                     margin_y=3,
                     padding_x=5,
@@ -212,29 +201,19 @@ screens = [
                     this_current_screen_border=colors[14], #ebcb8b
                     urgent_alert_method='line'
                 ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
+                widget.Spacer(length = 8),
                 widget.CurrentLayoutIcon(
                     background=colors[1],
                     custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-                    foreground=colors[6], #e5e9f0
+                    foreground=colors[14],
                     padding=0,
                     scale=0.65
                 ),
-                widget.Sep(
-                    background=colors[1],
-                    foreground=colors[5],
-                    linewidth=1,
-                    padding=10
-                ),
+                widget.Spacer(length = 8),
                 widget.CurrentLayout(
                     background=colors[1],
                     font='Ubuntu Bold',
-                    foreground=colors[6]
+                    foreground=colors[14]
                 ),
                 widget.Prompt(
                     background=colors[1],
@@ -334,7 +313,7 @@ screens = [
                     font='Ubuntu',
                     fontsize=12,
                     foreground=colors[14],
-                    fmt='  {}',
+                    fmt='  {}',
                     format='%d/%m/%y %H:%M',
                     decorations=[
                         BorderDecoration(
