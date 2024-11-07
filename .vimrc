@@ -13,6 +13,25 @@
 " https://github.com/styrman-g
 " My vim config file. Take a copy of it, if you want.
 "
+call plug#begin()
+
+" List your plugins here
+Plug 'jceb/vim-orgmode'
+Plug 'junegunn/goyo.vim'
+Plug 'mhinz/vim-startify'
+Plug 'itchyny/lightline.vim'
+Plug 'preservim/nerdtree'
+Plug 'preservim/vim-markdown'
+Plug 'ptzz/lf.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'lervag/vimtex'
+Plug 'vimwiki/vimwiki'
+Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
+let mapleader = ","
 " Line number.
 set number
 set relativenumber
@@ -27,8 +46,23 @@ nnoremap j gj
 nnoremap k gk
 
 " Themes.
-let g:molokai_original = 1
+"let g:molokai_original = 1
+"colorscheme nord
+colorscheme gruvbox
+set background=dark    " Setting dark mode
 
+" Goyo Plugin for fokus writing
+map <leader>g :Goyo<CR>
+
+" Keybindings for NerdtTree
+nnoremap <leader>t :NERDTreeToggle<CR>
+
+" Keybindings for Latex
+" Compiling dokument
+nnoremap <leader>c :VimtexCompile<CR>
+
+" vimwiki place for folder
+let g:vimwiki_list = [{'path': '~/Dokument/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
 " cursorline.
 set cursorline
@@ -47,6 +81,8 @@ set undofile
 set incsearch
 set scrolloff=8
 set hlsearch
+set nocompatible
+filetype plugin on
 
 syntax on
 
