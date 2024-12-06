@@ -26,7 +26,7 @@ from qtile_extras.widget import modify
 
 
 home = os.path.expanduser('~')
-terminal = "alacritty"
+terminal = "st"
 myBrowser = "librewolf"
 
 keys = [
@@ -79,10 +79,14 @@ desc="Spawn a command using a prompt widget"),
     Key("M-S-x", lazy.spawn("/home/styrman/.scripts/power.sh"), desc="Run a power scripts"),
     Key("M-c", lazy.spawn("/home/styrman/.scripts/dmenu-configs.sh"), desc="Run my config-scripts"),
     Key("M-S-b", lazy.spawn("/home/styrman/.scripts/backup.sh"), desc="Run Backup"),
+    Key("A-B", lazy.spawn("/home/styrman/.scripts/add-bookmark.sh"), desc="Add a bookmark"),
+    Key("A-b", lazy.spawn("/home/styrman/.scripts/dmenu-bookmarks.sh"), desc="My scripts for bookmarks to dmenu"),
+
+
 
     # Keybindings to launch user defined programs
     Key("M-S-<Return>", lazy.spawn("dmenu_run"), desc="Launch dmenu"),
-    Key("A-e", lazy.spawn("emacs"), desc="Launch emacs"),
+    Key("A-e", lazy.spawn("emacsclient -c -a 'emacs'"), desc="Launch emacs"),
     Key("M-f", lazy.spawn("st -e lf"), desc="Launch lf file manager"),
     Key("M-m", lazy.spawn("proton-mail"), desc="Launch Protonmail"),
     Key("M-n", lazy.spawn("nitrogen"), desc="Launch nitrogen"),
@@ -91,6 +95,8 @@ desc="Spawn a command using a prompt widget"),
     Key("A-t", lazy.spawn("urxvtc"), desc="Launch rxvt-unicode"),
     Key("M-p", lazy.spawn("keepassxc"), desc="My Passwordmanager"),
     Key("M-w", lazy.spawn(myBrowser), desc="launch my Browser"),
+    Key("M-p", lazy.spawn("passmenu"), desc="launch my password manager"),
+    Key("M-o", lazy.spawn("passmenu-otp"), desc="launch my password manager for otp"),
 ]
 
 groups = [
@@ -121,12 +127,13 @@ layouts = [
     layout.Max(**layout_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2, **layout_theme),
-    layout.Bsp(**layout_theme),
-    layout.Matrix(**layout_theme),
+    #layout.Bsp(**layout_theme),
+    #layout.Matrix(**layout_theme),
     layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
-    layout.RatioTile(**layout_theme),
+    #layout.MonadWide(**layout_theme),
+    #layout.RatioTile(**layout_theme),
     layout.Tile(**layout_theme),
+    layout.Floating(**layout_theme),
     #layout.TreeTab(
     #    sections=['FIRST', 'SECOND'],
     #    bg_color='#3b4252',
@@ -222,30 +229,27 @@ screens = [
                     foreground=colors[6]
                 ),
                 widget.Spacer(),
+                widget.GenPollCommand(
+                        background=colors[1],
+                        foreground=colors[12],
+                        cmd=' checkupdates | wc -l',
+                        fmt='   Updates: <i>{}</i>',
+                        font='Ubuntu',
+                        fontsize=12,
+                        update_interval=60,
+                        shell=True,
+                ),
                 widget.ThermalSensor(
                     foreground=colors[14],
                     update_interval=2,
                     format = ' {temp:.1f}{unit}',
                     fmt = '{}',
-                    decorations=[
-                        BorderDecoration(
-                            colour = colors[14],
-                            border_width = [0, 0, 2, 0],
-                    )
-                ],
                 ),
                 widget.Spacer(length = 8),
                 widget.CPU(
                      format = '   Cpu: {load_percent}%',
                      foreground = colors[8],
-                     decorations=[
-                        BorderDecoration(
-                          colour = colors[8],
-                          border_width = [0, 0, 2, 0],
-                      )
-                  ],
                   ),
-
                 widget.Spacer(length = 8),
                 widget.Memory(
                     background=colors[1],
@@ -254,14 +258,7 @@ screens = [
                     foreground=colors[12],
                     format="  Mem:  {MemUsed: .0f}{mm}",
                     update_interval=1.0,
-                    decorations=[
-                        BorderDecoration(
-                            colour = colors[12],
-                            border_width = [0, 0, 2, 0],
-                        )
-                  ],
                   ),
-
                 widget.Spacer(length = 8),
                 widget.DF(
                  update_interval = 60,
@@ -271,58 +268,53 @@ screens = [
                  format = '{uf}{m} free',
                  fmt = '  Disk: {}',
                  visible_on_warn = False,
-                 decorations=[
-                    BorderDecoration(
-                        colour = colors[14],
-                        border_width = [0, 0, 2, 0],
-                    )
-                 ],
                  ),
                 widget.Spacer(length = 8),
+                widget.GenPollCommand(
+                        background=colors[1],
+                        foreground=colors[8],
+                        cmd='curl wttr.in\?format=1',
+                        fmt='<i>{}</i>',
+                        font='Ubuntu',
+                        update_interval=60,
+                        shell=True,
+                        ),
+                widget.Spacer(length =8),
                 widget.Volume(
-                    foreground=colors[8],
+                    foreground=colors[14],
                     background=colors[1],
                     font='Ubuntu Nerd Font',
                     padding=5,
                     fmt=' Vol: {}',
-                    decorations=[
-                        BorderDecoration(
-                            colour = colors[8],
-                            border_width = [0, 0, 2, 0],
-                    )
-                ],
                 ),
                 widget.Spacer(length = 8),
                 widget.Battery(
                     font="Ubuntu Nerd Font",
-                    foreground=colors[12],
+                    foreground=colors[8],
                     background=colors[1],
                     padding=0,
                     fmt='   {}',
                     format='{char} {percent:2.0%} {hour:d}:{min:02d}',
-                    decorations=[
-                        BorderDecoration(
-                            colour =colors[12],
-                            border_width = [0, 0, 2, 0],
-                    )
-                ],
                 ),
                 widget.Spacer(length = 8),
                 widget.Clock(
                     background=colors[1],
                     font='Ubuntu',
                     fontsize=12,
-                    foreground=colors[14],
-                    fmt='  {}',
+                    foreground=colors[12],
+                    fmt='  {}',
                     format='%d/%m/%y %H:%M',
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[14],
-                            border_width=[0, 0, 2, 0],
-                    )
-                ],
                 ),
                 widget.Spacer(length = 8),
+                widget.GenPollCommand(
+                        background=colors[1],
+                        foreground=colors[12],
+                        cmd='/home/styrman/.scripts/moon.sh',
+                        fmt='<i>{}</i>',
+                        font='Ubuntu',
+                        update_interval=60,
+                        shell=True,
+                        ),
                 widget.Systray(
                     background=colors[1],
                     foreground=colors[8],
