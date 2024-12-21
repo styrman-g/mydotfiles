@@ -17,12 +17,14 @@ from libqtile.config import EzClick as Click, EzDrag as Drag, Group, EzKey as Ke
 from libqtile.lazy import lazy
 from typing import List  # noqa: F401
 from libqtile.widget import Spacer
+from libqtile import widget
+from libqtile import bar
 # Make sure 'qtile-extras' is installed or this config will not work.
-from qtile_extras import widget
-from qtile_extras.widget.decorations import BorderDecoration
-from qtile_extras.widget.decorations import PowerLineDecoration
-from qtile_extras.bar import Bar
-from qtile_extras.widget import modify
+#from qtile_extras import widget
+#from qtile_extras.widget.decorations import BorderDecoration
+#from qtile_extras.widget.decorations import PowerLineDecoration
+#from qtile_extras.bar import Bar
+#from qtile_extras.widget import modify
 
 
 home = os.path.expanduser('~')
@@ -86,11 +88,12 @@ desc="Spawn a command using a prompt widget"),
 
     # Keybindings to launch user defined programs
     Key("M-S-<Return>", lazy.spawn("dmenu_run"), desc="Launch dmenu"),
+    Key("M-x", lazy.spawn("betterlockscreen -l"), desc="Lock my screen"),
     Key("A-e", lazy.spawn("emacsclient -c -a 'emacs'"), desc="Launch emacs"),
-    Key("M-f", lazy.spawn("st -e lf"), desc="Launch lf file manager"),
+    Key("M-f", lazy.spawn("thunar"), desc="Launch my file manager"),
     Key("M-m", lazy.spawn("proton-mail"), desc="Launch Protonmail"),
     Key("M-n", lazy.spawn("nitrogen"), desc="Launch nitrogen"),
-    Key("A-r", lazy.spawn("rofi -show run"), desc="Launch rofi"),
+    Key("M-<space>", lazy.spawn("rofi -show run"), desc="Launch rofi"),
     Key("A-s", lazy.spawn("st"), desc="Launch suckless terminal"),
     Key("A-t", lazy.spawn("urxvtc"), desc="Launch rxvt-unicode"),
     Key("M-p", lazy.spawn("keepassxc"), desc="My Passwordmanager"),
