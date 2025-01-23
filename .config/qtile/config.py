@@ -187,6 +187,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.Spacer(length = 10),
                 widget.Image(
                     filename="~/.config/qtile/icons/arch.png",
                     iconsize=8,
@@ -325,6 +326,7 @@ screens = [
                     icon_size=20,
                     padding=4
                     ),
+                widget.Spacer(length = 10),
             ],
             22,
             opacity=1.0
