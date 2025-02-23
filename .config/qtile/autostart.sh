@@ -1,9 +1,8 @@
 #!/bin/sh
-picom &
-udiskie &
-dunst &
 nitrogen --restore &
 nm-applet &
-
-
-
+dunst &
+udiskie &
+protonmail-bridge --no-window &
+syncthingtray &
+signal-desktop &
