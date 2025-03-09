@@ -39,7 +39,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = "st"
+terminal = "alacritty"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -91,11 +91,11 @@ keys = [
     Key([mod], "f", lazy.spawn("pcmanfm"), desc="Launch my file manager"),
     Key([mod], "n", lazy.spawn("nitrogen"), desc="Launch Nitrogen"),
     Key([mod], "w", lazy.spawn("librewolf"), desc="Launch my Browser"),
-    Key([mod], "m", lazy.spawn("thunderbird"), desc="Launch my mail"),
+    Key([mod], "m", lazy.spawn("proton-mail"), desc="Launch my mail"),
     Key([mod], "p", lazy.spawn("passmenu"), desc="Launch my password manager"),
     Key([mod], "o", lazy.spawn("passmenu-otp"), desc="Launch my password manager"),
     Key([mod], "x", lazy.spawn("betterlockscreen -l"), desc="Lock my screen"),
-    Key([mod, "shift"], "Return", lazy.spawn("rofi -theme nord -show run"), desc="Rofi"),
+    Key([mod, "shift"], "Return", lazy.spawn("rofi -show run"), desc="Rofi"),
 ]
 
 # Add key bindings to switch VTs in Wayland.

@@ -55,7 +55,7 @@ esac
 shopt -s autocd 
 
 # Setting my Bash promt.
-#export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;3m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\H\[$(tput sgr0)\]\[\033[38;5;1m\]]\[$(tput sgr0)\]\\$\[$(tput sgr0)\] "
+export PS1="\[$(tput bold)\]\[\033[38;5;1m\][\[$(tput sgr0)\]\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;3m\]@\[$(tput sgr0)\]\[\033[38;5;14m\]\H\[$(tput sgr0)\]\[\033[38;5;1m\]]\[$(tput sgr0)\]\\$\[$(tput sgr0)\] "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -90,10 +90,17 @@ alias grep="grep --color=auto"
 alias yt="youtube-dl --add-metadata -ic"
 # Download only audio
 alias yta="youtube-dl --add-metadata -xic"
+# use Neovim
+alias vim="nvim"
+alias vi="nvim"
 
+### RANDOM COLOR SCRIPT ###
+# Install with yay -S shell-color-scripts-git
+colorscript random
+
+## If i want to use fastfetch
+#fastfetch -c neofetch.jsonc
 # Starchip-A cross-shell prompt
 eval "$(starship init bash)"
 
-#nerdfetch
-fastfetch -c neofetch.jsonc
-#neofetch
+
