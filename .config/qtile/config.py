@@ -210,6 +210,24 @@ screens = [
                     fontsize=14,
                     inactive=colors[11],
                     ),
+                widget.TextBox(
+                 text = '|',
+                 font = "Ubuntu Mono",
+                 foreground = colors[11],
+                 padding = 2,
+                 fontsize = 14
+                 ),
+        widget.CurrentLayout(
+                 foreground = colors[11],
+                 padding = 5
+                 ),
+        widget.TextBox(
+                 text = '|',
+                 font = "Ubuntu Mono",
+                 foreground = colors[11],
+                 padding = 2,
+                 fontsize = 14
+                 ),
                 widget.Spacer(),
                 widget.ThermalSensor(
                     foreground=colors[11],
@@ -255,8 +273,9 @@ screens = [
                     ),
                 widget.Spacer(length = 10),
             ],
-            24,
+            28,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            margin=[8, 12, 0, 12],
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
