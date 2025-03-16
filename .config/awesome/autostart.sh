@@ -7,10 +7,11 @@ function run {
   fi
 }
 
+run "lxsession"
 run "picom"
 run "nm-applet"
+run "volumeicon"
 run "nitrogen --restore"
 run "syncthingtray"
 run "dunst"
 run "udiskie"
-run "signal-desktop"

@@ -372,6 +372,16 @@ globalkeys = gears.table.join(
     awful.util.spawn("proton-mail") end,        
               {description = "Proton", group = "applications"}),
 
+    -- Passmenu
+    awful.key({ modkey },            "p",     function ()
+    awful.util.spawn("passmenu") end,        
+              {description = "Passmenu", group = "applications"}),
+
+    -- Passmenu-otp
+    awful.key({ modkey },            "o",     function ()
+    awful.util.spawn("passmenu-otp") end,        
+              {description = "Passmenu-otp", group = "applications"}),
+
     -- My lockscreen
     awful.key({ modkey },            "x",     function ()
     awful.util.spawn("betterlockscreen -l") end,        
@@ -393,7 +403,7 @@ globalkeys = gears.table.join(
 --              end,
 --              {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
+    awful.key({ modkey }, "ä", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
 )
 
