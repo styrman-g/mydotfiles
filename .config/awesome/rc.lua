@@ -1,3 +1,16 @@
+--
+--____  _                                        
+--/ ___|| |_ _   _ _ __ _ __ ___   __ _ _ __  ___ 
+--\___ \| __| | | | '__| '_ ` _ \ / _` | '_ \/ __|
+-- ___) | |_| |_| | |  | | | | | | (_| | | | \__ \
+--|____/ \__|\__, |_|  |_| |_| |_|\__,_|_| |_|___/
+--           |___/                                
+--                                                                 __ _       
+--  __ ___      _____  ___  ___  _ __ ___   ___    ___ ___  _ __  / _(_) __ _ 
+-- / _` \ \ /\ / / _ \/ __|/ _ \| '_ ` _ \ / _ \  / __/ _ \| '_ \| |_| |/ _` |
+--| (_| |\ V  V /  __/\__ \ (_) | | | | | |  __/ | (_| (_) | | | |  _| | (_| |
+-- \__,_| \_/\_/ \___||___/\___/|_| |_| |_|\___|  \___\___/|_| |_|_| |_|\__, |
+--                                                                      |___/
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
@@ -178,7 +191,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "dev", "www", "doc", "chat", "mus", "tor" }, s, awful.layout.layouts[1])
+    awful.tag({ "dev", "www", "doc", "chat", "media", "tor" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -223,6 +236,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.textbox(" "),
             s.mytaglist,
+            s.mylayoutbox,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
