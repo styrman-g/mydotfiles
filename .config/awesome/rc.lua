@@ -236,20 +236,11 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.textbox(" "),
             s.mytaglist,
-            s.mylayoutbox,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            --mykeyboardlayout,
-            cpu_widget({
-            width = 70,
-            step_width = 2,
-            step_spacing = 0,
-            color = '#434c5e'
-        }),
-            ram_widget(),
             pacman_widget {
             interval = 600,	-- Refresh every 10 minutes
             popup_bg_color = '#222222',
@@ -259,16 +250,31 @@ awful.screen.connect_for_each_screen(function(s)
             popup_width = 300,
             polkit_agent_path = '/usr/bin/lxpolkit'
         },
+            wibox.widget.textbox(" "),
+            --mykeyboardlayout,
+            wibox.widget.textbox(" Cpu: "),
+            cpu_widget({
+            width = 70,
+            step_width = 2,
+            step_spacing = 0,
+            color = '#434c5e'
+        }),  
+            --awful.widget.watch('bash script', 15),
+            wibox.widget.textbox(" "),
+            ram_widget(),
+            wibox.widget.textbox(" "),
+            wibox.widget.textbox(" "),
             mytextclock,
             wibox.widget.systray(),
-            logout_menu_widget(),
-        -- custom
-        logout_menu_widget{
-            font = 'Hack Nerd Font 14',
-            fg = '#cdd6f4',
-            bg = '#1E1E2E',
-            onlock = function() awful.spawn.with_shell('i3lock-fancy') end
-        },
+--            logout_menu_widget(),
+--        -- custom
+--        logout_menu_widget({
+--            font = 'Hack Nerd Font 14',
+--            fg = '#434c5e',
+--            bg = '#1E1E2E',
+--            onlock = function() awful.spawn.with_shell('i3lock-fancy') end
+--        }),
+            s.mylayoutbox,
             wibox.widget.textbox(" "),
         },
     }
