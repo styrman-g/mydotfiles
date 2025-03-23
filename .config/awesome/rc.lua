@@ -34,6 +34,8 @@ local cpu_widget = require("widgets.cpu-widget.cpu-widget")
 local ram_widget = require("widgets.ram-widget.ram-widget")
 local brightness_widget = require("widgets.brightness-widget.brightness")
 local pacman_widget = require('widgets.pacman-widget.pacman')
+local vicious = require("vicious")
+
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -204,13 +206,30 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
-
+    -- CREATE MY WIDGETS --------------------------------------------------------------------
+    
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons
     }
+     -- CPU widget
+    cpuwidget = wibox.widget.textbox()
+    cpuwidget.forced_width=65
+    vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%", 2)
+
+    --Updates
+--    updates = wibox.widget.textbox()
+--    updates.forced_width=65
+--    local pkg_all = "Arch C"
+--    vicious.register(updates, vicious.widgets.pkg, 2)
+
+
+ -- MEM widget
+    memwidget = wibox.widget.textbox()
+    memwidget.forced_width=65
+    vicious.register(memwidget, vicious.widgets.mem, " MEM: $1%", 2)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
@@ -241,6 +260,13 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            cpu_widget({
+            width = 70,
+            step_width = 2,
+            step_spacing = 0,
+            color = '#434c5e'
+        }),  
+            wibox.widget.textbox("Pac:"),
             pacman_widget {
             interval = 600,	-- Refresh every 10 minutes
             popup_bg_color = '#222222',
@@ -252,15 +278,12 @@ awful.screen.connect_for_each_screen(function(s)
         },
             wibox.widget.textbox(" "),
             --mykeyboardlayout,
-            wibox.widget.textbox(" Cpu: "),
-            cpu_widget({
-            width = 70,
-            step_width = 2,
-            step_spacing = 0,
-            color = '#434c5e'
-        }),  
+            wibox.widget.textbox(" "),
+            cpuwidget,
+            
             --awful.widget.watch('bash script', 15),
             wibox.widget.textbox(" "),
+            memwidget,
             ram_widget(),
             wibox.widget.textbox(" "),
             wibox.widget.textbox(" "),
