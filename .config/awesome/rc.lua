@@ -29,12 +29,11 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 --  Require some widgets
-local logout_menu_widget = require("widgets.logout-menu-widget.logout-menu")
-local cpu_widget = require("widgets.cpu-widget.cpu-widget")
-local ram_widget = require("widgets.ram-widget.ram-widget")
-local brightness_widget = require("widgets.brightness-widget.brightness")
-local pacman_widget = require('widgets.pacman-widget.pacman')
+--local cpu_widget = require("widgets.cpu-widget.cpu-widget")
+--local ram_widget = require("widgets.ram-widget.ram-widget")
+--local pacman_widget = require('widgets.pacman-widget.pacman')
 local vicious = require("vicious")
+local lain  = require("lain")
 
 
 -- Enable hotkeys help widget for VIM and other apps
@@ -87,15 +86,15 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.floating,
+    awful.layout.suit.max.fullscreen,
+    awful.layout.suit.tile.top,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
-    --awful.layout.suit.tile.top,
     --awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
     --awful.layout.suit.max,
-    --awful.layout.suit.max.fullscreen,
     --awful.layout.suit.magnifier,
     --awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
@@ -131,7 +130,8 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock() 
+mytextclock.format=" %a %d %b %H:%M"
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -206,6 +206,18 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
+    -- Spacer
+    spacer = wibox.widget.textbox(" ")
+    spacerline = wibox.widget.textbox(" | ")
+
+    -- Separators lain
+local separators = lain.util.separators
+
+arrl_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
+arrl_ld = separators.arrow_left("alpha", beautiful.bg_focus)
+
+
+
     -- CREATE MY WIDGETS --------------------------------------------------------------------
     
     -- Create a taglist widget
@@ -217,19 +229,25 @@ awful.screen.connect_for_each_screen(function(s)
      -- CPU widget
     cpuwidget = wibox.widget.textbox()
     cpuwidget.forced_width=65
-    vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%", 2)
+    vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1", 2)
 
-    --Updates
---    updates = wibox.widget.textbox()
---    updates.forced_width=65
---    local pkg_all = "Arch C"
---    vicious.register(updates, vicious.widgets.pkg, 2)
+    -- Coretemp
+    local temp = lain.widget.temp {
+    settings = function()
+        widget:set_markup(" " .. coretemp_now .. "°C ")
+    end
+}
 
+    local cpu = lain.widget.cpu {
+    settings = function()
+        widget:set_markup("Cpu " .. cpu_now.usage)
+    end
+}
 
  -- MEM widget
     memwidget = wibox.widget.textbox()
     memwidget.forced_width=65
-    vicious.register(memwidget, vicious.widgets.mem, " MEM: $1%", 2)
+    vicious.register(memwidget, vicious.widgets.mem, " MEM: $1", 2)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
@@ -260,43 +278,20 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            cpu_widget({
-            width = 70,
-            step_width = 2,
-            step_spacing = 0,
-            color = '#434c5e'
-        }),  
-            wibox.widget.textbox("Pac:"),
-            pacman_widget {
-            interval = 600,	-- Refresh every 10 minutes
-            popup_bg_color = '#222222',
-            popup_border_width = 1,
-            popup_border_color = '#7e7e7e',
-            popup_height = 10,	-- 10 packages shown in scrollable window
-            popup_width = 300,
-            polkit_agent_path = '/usr/bin/lxpolkit'
-        },
-            wibox.widget.textbox(" "),
-            --mykeyboardlayout,
             wibox.widget.textbox(" "),
             cpuwidget,
-            
-            --awful.widget.watch('bash script', 15),
+            wibox.widget.textbox("% "),
             wibox.widget.textbox(" "),
+            wibox.widget.textbox(""),
+            temp,            
+            wibox.widget.textbox(" "),
+            wibox.widget.textbox(" "),
             memwidget,
-            ram_widget(),
+            wibox.widget.textbox("%"),
             wibox.widget.textbox(" "),
             wibox.widget.textbox(" "),
             mytextclock,
             wibox.widget.systray(),
---            logout_menu_widget(),
---        -- custom
---        logout_menu_widget({
---            font = 'Hack Nerd Font 14',
---            fg = '#434c5e',
---            bg = '#1E1E2E',
---            onlock = function() awful.spawn.with_shell('i3lock-fancy') end
---        }),
             s.mylayoutbox,
             wibox.widget.textbox(" "),
         },
